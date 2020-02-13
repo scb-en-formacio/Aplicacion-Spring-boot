@@ -26,21 +26,3 @@ label{
 .nav-tabs{
 	border-bottom:0px;
 }
-footer{
-    background: black;
-    text-align: center;
-    float: left;
-    margin-top: 10px;
-    width: 100%;
-    height: 120px;
-}
-footer p{
-    font-family: 'Comic Sans MS';
-    color: yellow;
-    font-size: 20px;
-    padding: 20px 20px 1px;
-	width: fit-content;
-}
-.margen-10 {
-	margin: 10px;
-}
