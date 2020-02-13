@@ -113,7 +113,7 @@ public class UsuarioController {
 		model.addAttribute("usuarioList", usuServ.getAllUsuarios());
 		model.addAttribute("roles", rolRepo.findAll());
 
-		return "/"; //index();
+		return "index"; //index();
 	}
 	
 	/*La manera de pasar valores a nuestro HTML es agregandolos al Map del modelo.
