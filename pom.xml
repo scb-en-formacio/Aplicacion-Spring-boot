@@ -9,7 +9,7 @@
 		<version>2.2.2.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>cat.fastigo64.aplicacion</groupId>
+	<groupId>cat.factigo64.aplicacion</groupId>
 	<artifactId>Aplicacion01</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Aplicacion01</name>
