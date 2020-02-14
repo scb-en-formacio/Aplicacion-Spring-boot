@@ -1,0 +1,59 @@
+	<div class="table-responsive">
+		<table id="userList" class="table table-bordered table-hover table-striped">
+			<thead class="thead-light">
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Nombre</th>
+				<th scope="col">Apellidos</th>
+				<th scope="col">Usuario</th>
+				<th scope="col">E-mail</th>
+				<th ></th>
+			</tr>
+			</thead>
+			<tbody>
+			<!--funcionalidad para evaluar variables
+				<span th:text="${#authorization.expression('hasRole(''ROLE_USUARIO'')')}"></span> -->
+    		<!-- usuarioList variable enviada desde el controlador-->
+			<tr th:each="user: ${usuarioList}">
+				<!-- si el objeto entidad no tuviera creado los geters, no funcionarían estos -->
+				<td th:text="${user.id}"></td>
+				<td th:text="${user.nombre}"></td>
+				<td th:text="${user.apellidos}"></td>
+				<td th:text="${user.username} "></td>
+				<td th:text="${user.email}"></td>
+				<td><!-- span th:text="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"></span> -->
+					<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} or (${#authorization.expression('hasRole(''ROLE_USUARIO'')')}
+							 and ${#httpServletRequest.remoteUser==user.username})" >
+						<a href="#" th:href="@{'/editUsuario/'+ ${user.id}}"><i class="fas fa-edit"></i></a>
+					</span>
+					<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" >| 
+						<a href="#" th:onclick="'javascript:confirmDelete(\''+ ${user.id} +'\');'">
+						<i class="fas fa-user-times"></i></a>
+					</span>
+					<!--estos son intentos fallidos
+					 a href="#" th:onclick="'javascript:confirmDelete(\''+ ${user.id} +', \''+ ${user.nombre} +'\');'"> -->
+					<!-- a href="#" th:onclick="javascript:confirmDelete("+ ${user.id} +", '"+ ${user.nombre} +");"> -->
+						
+				</td>
+			</tr>
+			</tbody>
+		</table>
+		<div class="alert alert-danger text-center" th:if="${listErrorMessage}" th:text="${listErrorMessage}">mens de Error </div>
+		<div id="deleteError" th:if="${deleteError}" class="alert alert-danger text-center" role="alert">
+			<span th:text="${deleteError}"></span>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+	function confirmDelete(id){
+		$('#deleteModal').modal('show');
+		$("#userIdHiddenInput").val(id);
+		$("#otro").text(id);
+	}
+
+	function deleteUsuario(){
+		var id = $("#userIdHiddenInput").val();
+		window.location = "deleteUsuario/"+id;
+	}
+	</script>
+	
