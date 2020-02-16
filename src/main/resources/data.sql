@@ -4,6 +4,13 @@ SELECT COALESCE(MAX(id), 0)+1, 'admin@admin.com', 'admin', 'administrador', 'adm
  ON CONFLICT (username)
 DO nothing;
 
+INSERT INTO role (id, descripcion, nombre) values(1, 'ROLE_ADMIN', 'ADMIN') ON CONFLICT (id)
+DO nothing;
+INSERT INTO role (id, descripcion, nombre) values(2, 'ROLE_USUARIO', 'USUARIO) ON CONFLICT (id)
+DO nothing;
+INSERT INTO role (id, descripcion, nombre) values(3, 'ROLE_SUPERVISOR', 'SUPERVISOR') ON CONFLICT (id)
+DO nothing;
+
 INSERT INTO role (id, descripcion, nombre) select maximo, 'ROLE_ADMIN', 'ADMIN' FROM role,
 (select COALESCE(MAX(id), 0)+1 maximo FROM role) m
 WHERE NOT EXISTS (SELECT nombre FROM role WHERE nombre = 'ADMIN') LIMIT 1;
