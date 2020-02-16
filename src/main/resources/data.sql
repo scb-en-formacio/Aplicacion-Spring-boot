@@ -1,18 +1,19 @@
-INSERT INTO usuario (id, email, nombre, apellidos, contrasenya, username) 
-VALUES (default, 'admin@admin.com', 'admin', 'administrador', '$2a$04$n6WIRDQlIByVFi.5rtQwEOTAzpzLPzIIG/O6quaxRKY2LlIHG8uty',
- 'admin') ON CONFLICT (username)
+INSERT INTO usuario (id, email, nombre, apellidos, username, contrasenya) 
+SELECT COALESCE(MAX(id), 0)+1, 'admin@admin.com', 'admin', 'administrador', 'admin',
+'$2a$04$n6WIRDQlIByVFi.5rtQwEOTAzpzLPzIIG/O6quaxRKY2LlIHG8uty' FROM usuario LIMIT 1 
+ ON CONFLICT (username)
 DO nothing;
 
 INSERT INTO role (id, descripcion, nombre) select maximo, 'ROLE_ADMIN', 'ADMIN' FROM role,
-(select MAX(id)+1 maximo FROM role) m
+(select COALESCE(MAX(id), 0)+1 maximo FROM role) m
 WHERE NOT EXISTS (SELECT nombre FROM role WHERE nombre = 'ADMIN') LIMIT 1;
 
 INSERT INTO role (id, descripcion, nombre) select maximo, 'ROLE_USUARIO', 'USUARIO' FROM role,
-(select MAX(id)+1 maximo FROM role) m
+(select COALESCE(MAX(id), 0)+1 maximo FROM role) m
 WHERE NOT EXISTS (SELECT nombre FROM role WHERE nombre = 'USUARIO') LIMIT 1;
 
 INSERT INTO role (id, descripcion, nombre) select maximo, 'ROLE_SUPERVISOR', 'SUPERVISOR' FROM role,
-(select MAX(id)+1 maximo FROM role) m
+(select COALESCE(MAX(id), 0)+1 maximo FROM role) m
 WHERE NOT EXISTS (SELECT nombre FROM role WHERE nombre = 'SUPERVISOR') LIMIT 1;
 
 INSERT INTO usuario_roles (usuario_id, role_id) 
