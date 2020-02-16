@@ -23,10 +23,10 @@ public class Role implements Serializable{
 	@GenericGenerator(name="native", strategy="native")
 	private Long id;
 
-	@Column
+	@Column(unique = true)
 	private String nombre;
 
-	@Column
+	@Column(unique = true)
 	private String descripcion;
 
 	public Long getId() {
