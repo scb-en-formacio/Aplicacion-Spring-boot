@@ -35,7 +35,6 @@ import cat.factigo64.aplicacion.dto.CambiaContrasenyaForm;
 import cat.factigo64.aplicacion.entidad.ReseteaContrasenyaToken;
 import cat.factigo64.aplicacion.entidad.Role;
 import cat.factigo64.aplicacion.entidad.Usuario;
-import cat.factigo64.aplicacion.repositorio.ContrasenyaTokenRepositorio;
 import cat.factigo64.aplicacion.repositorio.RoleRepository;
 import cat.factigo64.aplicacion.repositorio.UsuarioRepository;
 import cat.factigo64.aplicacion.servicio.EmailServicio;
@@ -67,8 +66,10 @@ public class UsuarioController {
 			//ModelAndView model) {
         //ModelAndView model = new ModelAndView("/index"); <--no
 		//model.addObject("textoRecuerdo", "texto pepito enviado");
-
-		//model.addAttribute("textoRecuerdo", "texto pepito enviado");
+        int roles = ((List<Role>) rolRepo.findAll()).size();
+        int usus = ((List<Usuario>) usuRepo.findAll()).size();
+		session.setAttribute("nRoles", "Roles "+ roles);
+		session.setAttribute("nUsus", "usus "+ usus);
 		return "index";
 	}
 	

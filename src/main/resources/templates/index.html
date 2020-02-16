@@ -28,6 +28,8 @@
                 <!-- asegurarse que el action va al metodo de logueo="/login" y no es"get" -->
                 <form class="col-12" th:action="@{/login}" method="post">
                     <div class="form-group" id="user-group">
+                    <span th:text="${session.nRoles}" class="Italica text-info"></span>
+                    <span th:text="${session.nUsus}" class="Italica text-info"></span>
                         <input type="text" class="form-control" placeholder="Nombre de usuario" name="nomUsuario"/>
                     </div>
                     <div class="form-group" id="contrasena-group">
@@ -36,7 +38,7 @@
                     <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Ingresar </button>
                 </form>
                 <div class="col-12 forgot">
-                    <a href="/olvideContrasenya"  th:text="${session.textoRecuerdo}"></a><br>
+                    <a href="/olvideContrasenya" th:text="${session.textoRecuerdo}"></a><br>
                     <!-- span th:text="${session.textoRecuerdo}"></span><br> -->
                     <a href="/registro" class="Italica text-info">Registrar usuario</a>
                 </div>
