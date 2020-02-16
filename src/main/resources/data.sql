@@ -6,7 +6,7 @@ DO nothing;
 
 INSERT INTO role (id, descripcion, nombre) values(1, 'ROLE_ADMIN', 'ADMIN') ON CONFLICT (id)
 DO nothing;
-INSERT INTO role (id, descripcion, nombre) values(2, 'ROLE_USUARIO', 'USUARIO) ON CONFLICT (id)
+INSERT INTO role (id, descripcion, nombre) values(2, 'ROLE_USUARIO', 'USUARIO') ON CONFLICT (id)
 DO nothing;
 INSERT INTO role (id, descripcion, nombre) values(3, 'ROLE_SUPERVISOR', 'SUPERVISOR') ON CONFLICT (id)
 DO nothing;
