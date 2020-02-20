@@ -80,3 +80,22 @@ footer p{
 .margen-10 {
 	margin: 10px;
 }
+.top-50 {
+	margin-top: 50px;
+}
+.derecha {
+	float: right;
+}
+.fa-stack[data-count]:after{
+  left: 55%;
+  top:10%;
+  content: attr(data-count);
+  font-size:40%;
+  padding:.4em;
+  border-radius:50%;
+  line-height:1em;
+  color: white;
+  background:rgba(255,0,0,.85);
+  text-align:center;
+  min-width: 1em;
+}

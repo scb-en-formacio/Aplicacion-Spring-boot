@@ -1,5 +1,7 @@
 package cat.factigo64.aplicacion.controlador;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +28,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -68,8 +73,8 @@ public class UsuarioController {
 		//model.addObject("textoRecuerdo", "texto pepito enviado");
         int roles = ((List<Role>) rolRepo.findAll()).size();
         int usus = ((List<Usuario>) usuRepo.findAll()).size();
-		session.setAttribute("nRoles", "Roles "+ roles);
-		session.setAttribute("nUsus", "usus "+ usus);
+		//session.setAttribute("nRoles", "Roles "+ roles);
+		session.setAttribute("nUsus", usus);
 		return "index";
 	}
 	
@@ -109,12 +114,24 @@ public class UsuarioController {
 				result.rejectValue( evc.getNombreCampo(), null, evc.getMessage());
 			} catch (Exception e) {
 				model.addAttribute("formErrorMessage", e.getMessage());
+				return "usuario-form/usuario-registro";
 			}
+		}
+		if(result.hasErrors()) {
+			return "usuario-form/usuario-registro";
 		}
 		model.addAttribute("usuarioList", usuServ.getAllUsuarios());
 		model.addAttribute("roles", rolRepo.findAll());
+		//HttpSession httpSession = ((HttpServletRequest) request()).getSession();
+		RequestAttributes requestAttributes = RequestContextHolder
+	            .currentRequestAttributes();
+	    ServletRequestAttributes attributes = (ServletRequestAttributes) requestAttributes;
+	    HttpServletRequest request = attributes.getRequest();
+	    HttpSession httpSession = request.getSession(true);
 
-		return "index"; //index();
+	    Object userObject = httpSession.getAttribute("WEB_USER");
+
+		return index(httpSession);//"index"; 
 	}
 	
 	/*La manera de pasar valores a nuestro HTML es agregandolos al Map del modelo.

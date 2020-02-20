@@ -14,7 +14,7 @@
 	
 		<form class="form" role="form" autocomplete="off" th:object="${usuarioForm}" th:action="${signup}?@{/registro}:(${editMode} ?@{/editUsuario} :@{/usuarioForm})" method="post">
 			<!--Es necesario para poder pasar la validacion del Model-->
-			<input class="form-control" type=hidden th:field="${usuarioForm.id}" value="default" th:if="${editMode}">
+			<input class="form-control" type=hidden th:field="${usuarioForm.id}" value="default" th:if="${editMode==true or signup==true}">
 			<!-- si este campo se pone con th:field=${usuarioForm.contrasenya} no va bien, asi q-->
 			<input class="form-control" type=hidden name="contrasenya" value="xxxxxx" th:if="${editMode}">
 		<!-- quita el comentario si quieres mantener la validacion @NotBlank del campo confirmaContrasenya

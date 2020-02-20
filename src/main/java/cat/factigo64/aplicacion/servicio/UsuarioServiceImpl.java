@@ -40,6 +40,16 @@ public class UsuarioServiceImpl implements UsuarioService{
 		}
 		return true;
 	}
+
+	private boolean esEmailLibre(Usuario user) throws Exception {
+		//Usuario usuEncontrado = usuRepo.findByUsername(user.getUsername());
+		//if (usuEncontrado.getId() >= 0) {
+		Optional<Usuario> usuEncontrado = usuRepo.findByEmail(user.getEmail());
+		if (usuEncontrado.isPresent()) {
+			throw new ErrorValidacionCampo("Este email ya esta registrado", "email");
+		}
+		return true;
+	}
 	private boolean contrasenyaValida(Usuario user) throws Exception {
 		if (user.getConfirmaContrasenya() == null || user.getConfirmaContrasenya().isEmpty()) {
 			throw new ErrorValidacionCampo("Confirma contraseña es obligatorio", "ConfirmaContrasenya");
@@ -51,7 +61,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 	}
 	@Override
 	public boolean creaUsuario(Usuario user) throws Exception {
-		if (esUsernameLibre(user) && contrasenyaValida(user)) {
+		if (esUsernameLibre(user) && esEmailLibre(user) && contrasenyaValida(user)) {
 			String claveEncodif = codifica(user.getContrasenya());
 			user.setContrasenya(claveEncodif);
 			user = usuRepo.save(user);
