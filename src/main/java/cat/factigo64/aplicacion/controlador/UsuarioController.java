@@ -1,7 +1,5 @@
 package cat.factigo64.aplicacion.controlador;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -71,7 +69,8 @@ public class UsuarioController {
 			//ModelAndView model) {
         //ModelAndView model = new ModelAndView("/index"); <--no
 		//model.addObject("textoRecuerdo", "texto pepito enviado");
-        int roles = ((List<Role>) rolRepo.findAll()).size();
+        
+        //int roles = ((List<Role>) rolRepo.findAll()).size();
         int usus = ((List<Usuario>) usuRepo.findAll()).size();
 		//session.setAttribute("nRoles", "Roles "+ roles);
 		session.setAttribute("nUsus", usus);
